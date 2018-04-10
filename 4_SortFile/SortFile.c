@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
      
     //File öffnen
     FILE *fptr;
-    fptr = fopen(argv[2], "r");
+    fptr = fopen("zahlen.txt", "r");
     
     if(NULL == fptr){
         perror("FILEERROR");
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
 	  
 	  //File einlesen
 	 for(i=0; i<=10; i++) {
-	  fscanf(fptr, "%d\n", &chars[i]);
+	  fscanf(fptr, "%c\n", &chars[i]);
 	  }	
 	}
 	
