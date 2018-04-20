@@ -12,7 +12,7 @@ SLIST_HEADER *createSList(void) {
 	if(pHeader==NULL) {
 			return NULL;
 	} else {
-		pHeader->len=0;
+		pHeader->Len=0;
 		pHeader -> First=NULL;
 		pHeader -> Last=NULL;
 	} 
