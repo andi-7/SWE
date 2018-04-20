@@ -92,9 +92,6 @@ void *deleteFirst(SList_Header) {
 
 
 
-
-
-
 		   
 //----------Main Funktion----------
 int main(int argc, char *argv[]) {
