@@ -18,7 +18,6 @@ int main(int argc, char *argv[]) {
 	LIST_NODE *current = root;
 
     current = insertRight(current, 7);
-    current = insertRight(current, 1);
     current = insertRight(current, 4);
     current = insertRight(current, 2);
     current = insertLeft(current, 8);

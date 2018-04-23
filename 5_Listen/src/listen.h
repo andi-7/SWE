@@ -3,6 +3,7 @@
 
 //Doppelt verkettete Liste
 
+
 /*SLIST Knoten*/
 typedef struct ListNode {
 	int Data;
