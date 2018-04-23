@@ -2,110 +2,95 @@
 #include <stdlib.h>
 #include "listen.h"
 
-
-	  
-//----------Leere Liste erzeugen----------
-SLIST_HEADER *createSList(void) {
-	
-	SLIST_HEADER *pHeader = malloc(sizeof(SLIST_HEADER));
-	
-	if(pHeader==NULL) {
-			return NULL;
-	} else {
-		pHeader->Len=0;
-		pHeader -> First=NULL;
-		pHeader -> Last=NULL;
-	} 
-}		  
-
-//----------Erstes Element einfügen----------	
-SLIST *insertFirst(SLIST_HEADER, int data) {
-	
-	SLIST *pNode = malloc(sizeof(SLIST));
-	
-	//Wenn die Liste noch leer ist:
-	if(pHeader->Last==NULL) {
-		pHeader->First=pNode;
-		pHeader->Last=pNode;
-		
-	//Liste enthält bereits ein Element
-	} else {
-		pNode->Next=pHeader->First;
-		pHeader-> First = pNode; 
-	} 	
-	
-	//Übergebene Daten in das Element schreiben 
-	//Länge der Liste um 1 erhöhen
-	pNode -> Data = data;
-	pHeader -> Len += 1;
-}	
-	
-	
-//----------Letztes Element einfügen----------
-SLIST *insertLast(SLIST_HEADER, int data) {
-	
-	SLIST *pNode = malloc(sizeof(SLIST));
-	
-	//Wenn die Liste noch leer ist:
-	if(pHeader->First==NULL) {
-		pHeader->First=pNode;
-		pHeader->Last=pNode;
-		
-	//Liste enthält bereits ein Element
-	} else {
-		pNode->Next=pHeader->Last;
-		pHeader-> Last = pNode; 
-	} 	
-	
-	//Übergebene Daten in das Element schreiben 
-	//Länge der Liste um 1 erhöhen
-	pNode -> Data = data;
-	pHeader -> Len -= 1;
-}		
-	
-//----------Liste ausgeben----------	
-void printList(SLIST_HEADER) {
-	
-	int i;
-	
-	for(i=0; i<=(pHeader->len); i++) {
-		printf("%d\n", pNode->data);
-		pNode=pNode->next;
-	}
-}		
-	
-//----------Erstes Element löschen----------
-void *deleteFirst(SList_Header) {
-	
-	SList *ptr;
-	int wert;
-	
-	ptr=pHeader->First;
-	wert = ptr->Data;
-	
-	if(ptr->len==0) {
-		return 0;
-	}
-	
-	
-}
+//----------------------Funktionsprototypen----------------------
+LIST_NODE *createList();
+LIST_NODE *insertRight(LIST_NODE *list, int data);
+LIST_NODE *insertLeft(LIST_NODE *list, int data);
+void *deleteElement(LIST_NODE* list);
+void print_List(LIST_NODE *list);
 
 
+//----------------------Main----------------------
 
-		   
-//----------Main Funktion----------
 int main(int argc, char *argv[]) {
-   
-    SLIST_HEADER *root = createSList();
-    int i;
-    
-    if(root==NULL) {
-		printf("ERROR!!");
-		return EXIT_FAILURE;
-	}	
-	
-    
+
+	LIST_NODE *root = createList();
+	LIST_NODE *current = root;
+
+    current = insertRight(current, 7);
+    current = insertRight(current, 4);
+    current = insertRight(current, 2);
+    current = insertLeft(current, 8);
+    current = insertLeft(current, 6);
+
+    print_List(root);
+
     return 0;
 }
 
 
+//----------------------Funktionen----------------------
+
+//----------Leere Liste erzeugen----------
+LIST_NODE *createList() {
+
+	LIST_NODE *newNode = malloc(sizeof(LIST_NODE));
+	newNode->Data=-1;
+	newNode->Next=newNode;
+	newNode->Prev=newNode;
+
+	return newNode;
+}		  
+
+//----------Element rechts einfügen----------
+LIST_NODE *insertRight(LIST_NODE *list, int data) {
+
+	LIST_NODE *newNode = malloc(sizeof(LIST_NODE));
+
+	newNode->Data = data;
+	newNode->Prev = list;
+	newNode->Next = list->Next;
+	list->Next = newNode;
+	newNode->Next->Prev = newNode;
+
+	return newNode;
+
+}
+
+//----------Element links einfügen----------
+LIST_NODE *insertLeft(LIST_NODE *list, int data) {
+	
+	LIST_NODE *newNode = malloc(sizeof(LIST_NODE));
+
+	newNode->Data = data;
+	newNode->Next = list;
+	newNode->Prev = list->Prev;
+	list->Prev = newNode;
+	newNode->Prev->Next = newNode;
+
+	return newNode;
+
+	
+}	
+	
+//----------Element löschen----------
+void *deleteElement(LIST_NODE* list) {
+	
+	list->Next->Prev = list->Prev;
+	list->Prev->Next = list->Next;
+	return list->Prev;
+}
+
+//----------Liste ausgeben----------
+void print_List(LIST_NODE *list) {
+	LIST_NODE *head = list;
+	LIST_NODE *current = list;
+
+	printf("%d ", head->Data);
+
+	while (head != (current = current->Next)){
+		printf("%d ", current->Data);
+	}
+
+	printf("\n");
+}
