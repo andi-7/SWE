@@ -58,6 +58,7 @@ int main(void) {
 		myStack=push(myStack,7);
 		myStack=push(myStack,4);
 		myStack=push(myStack,9);
+		myStack=push(myStack,1);
 
 		print(myStack);
 
