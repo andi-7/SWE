@@ -13,8 +13,8 @@ int main(int argc, const char * argv[]) {
     float systemp, millideg;
     int n;
   
-    FILE *myfile;
-    myfile = fopen("temp.log", "w");
+   
+    
     
     FILE *thermal;
     thermal = fopen("/sys/class/thermal/thermal_zone0/temp","r");
@@ -28,7 +28,8 @@ int main(int argc, const char * argv[]) {
 
     printf("CPU Temperatur: %.4f Grad Celsius\n",systemp);
      
-    //Temperatur in mein Programm schreiben  
+    //Temperatur in myCPUTemp.log schreiben  
+    FILE *myfile;
     myfile = fopen("myCPUTemp.log", "a");
     fprintf(myfile, "%.4f Grad Celsius\n", systemp);
 

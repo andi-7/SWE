@@ -1,8 +1,3 @@
-//
-//  tempLog.c
-//  DatenLogger
-
-
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,23 +5,25 @@
 
 int main(int argc, const char * argv[]) {
     
-   
+    float data;   
 
-
-    //File erzeugen
-    FILE *fptr;
-    fptr = fopen("wetter.log", "w");
-    
-    if(NULL == fptr){
-        perror("FILEERROR:");
-        return 1;
-    }
-  
-
+    //File downloaden
     system("wget http://www.zamg.ac.at/ogd");
+
+    //File öffnen
+    FILE *zamg;
+    zamg = fopen("/home/pi/SWE/3_DatenLogger/ogd", "r");
+    
+    fscanf(zamg,"%f",&data);
+
+    fclose(zamg);
+  
+    FILE *myfile;
+    myfile = fopen("wetter.log","a");
+    fprintf(myfile, "%f", data);
        
 
-    fclose(fptr);
+    fclose(myfile);
   
     
     return 0;
